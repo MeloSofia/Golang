@@ -5,7 +5,7 @@ import "fmt"
 var nome string
 
 func hello() {
-  fmt.Printf("Hello world\n")
+  fmt.Printf("hello world\n")
 }
 
 func name() {
