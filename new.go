@@ -7,15 +7,15 @@ func main() {
 	var nome string
 	var a, b int
 
-	fmt.Println("Digite seu nome:") 
-	fmt.Scanln(&nome)
+	fmt.Printf("Digite seu nome:") 
+	fmt.Scan(&nome)
 	fmt.Printf("O nome é: %s\n", nome)
 
-	fmt.Println("Digite o primeiro número:")
-	fmt.Scanln(&a)
+	fmt.Printf("Digite o primeiro número:")
+	fmt.Scan(&a)
 
-	fmt.Println("Digite o segundo número:")
-	fmt.Scanln(&b)
+	fmt.Printf("Digite o segundo número:")
+	fmt.Scan(&b)
 
 	fmt.Printf("A soma dos números é: %d\n", a+b)
 }
