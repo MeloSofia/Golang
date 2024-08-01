@@ -18,7 +18,7 @@ func sum(a, b int) int {
 }
 
 func dobro() {
-    preco := []int{2, 4, 6, 8, 10}
+    preco := []int{2, 4, 6, 8, 9, 11, 13}
     for _, preco := range preco {
         fmt.Printf("O dobro de %d é %d\n", preco, preco*2)
     }
