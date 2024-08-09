@@ -3,42 +3,118 @@ package main
 import "fmt"
 
 type Celula struct {
-	item    int
-	proximo *Celula
+    item    int
+    proximo *Celula
+}
+// Inserir um item na lista
+func inserir(raiz **Celula, novoItem int) {
+    novaCelula := &Celula{
+        item:    novoItem,
+        proximo: nil,
+    }
+
+    if *raiz == nil || novoItem < (*raiz).item {
+        novaCelula.proximo = *raiz
+        *raiz = novaCelula
+        return
+    }
+
+    celulaAtual := *raiz
+
+    for celulaAtual.proximo != nil && celulaAtual.proximo.item < novoItem {
+        celulaAtual = celulaAtual.proximo
+    }
+
+    novaCelula.proximo = celulaAtual.proximo
+    celulaAtual.proximo = novaCelula
 }
 
-func percorrerLista() {
-	quinta := Celula{
-		item:    5,
-		proximo: nil,
-	}
+func imprimirCelulas(celula *Celula) {
+    celulaAtual := celula
 
-	quarta := Celula{
-		item:    4,
-		proximo: &quinta,
-	}
+    for celulaAtual != nil {
+        fmt.Printf("Celula(%d) -> ", celulaAtual.item)
+        celulaAtual = celulaAtual.proximo
+    }
 
-	terceira := Celula{
-		item:    3,
-		proximo: &quarta,
-	}
+    fmt.Println("nil")
+}
 
-	segunda := Celula{
-		item:    2,
-		proximo: &terceira,
-	}
+// Buscar um item na lista
+func buscar(raiz *Celula, item int) *Celula {
+    celulaAtual := raiz
 
-	primeira := Celula{
-		item:    1,
-		proximo: &segunda,
-	}
+    for celulaAtual != nil {
+        if celulaAtual.item == item {
+            return celulaAtual
+        }
+        celulaAtual = celulaAtual.proximo
+    }
+    return nil
+}
 
-	atual := &primeira
-	for atual != nil {
-		fmt.Println(atual.item)
-		atual = atual.proximo 
-	}
+// Remover um item da lista
+func remover(raiz **Celula, itemParaRemover int) {
+    if *raiz == nil {
+        return
+    }
+    if (*raiz).item == itemParaRemover {
+        *raiz = (*raiz).proximo
+        return
+    }
+
+    anterior := *raiz
+    atual := (*raiz).proximo
+    for atual != nil {
+        if atual.item == itemParaRemover {
+            anterior.proximo = atual.proximo
+            return
+        }
+        anterior = atual
+        atual = atual.proximo
+    }
 }
 
 func main() {
-	percorrerLista()}
+    var raiz *Celula = nil
+
+    imprimirCelulas(raiz)
+
+    inserir(&raiz, 6)
+    imprimirCelulas(raiz)
+
+    inserir(&raiz, 10)
+    imprimirCelulas(raiz)
+
+    inserir(&raiz, 11)
+    imprimirCelulas(raiz)
+
+    inserir(&raiz, 12)
+    imprimirCelulas(raiz)
+
+    inserir(&raiz, 13)
+    imprimirCelulas(raiz)
+
+    inserir(&raiz, 2)
+    imprimirCelulas(raiz)
+
+		inserir(&raiz, 5)
+    imprimirCelulas(raiz)
+
+		inserir(&raiz, 16)
+    imprimirCelulas(raiz)
+
+		itemParaBuscar := 2
+
+    resultado := buscar(raiz, itemParaBuscar)
+		if resultado != nil{
+			fmt.Println("Item existente:",itemParaBuscar)
+		}else{
+			fmt.Println("Item inesxistente")
+		}
+
+		remover(&raiz, 11)
+    fmt.Println("Lista após remover o item:")
+    imprimirCelulas(raiz)
+}
+
